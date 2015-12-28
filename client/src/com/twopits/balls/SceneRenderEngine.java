@@ -138,7 +138,7 @@ public class SceneRenderEngine extends JPanel {
 		myCharacter.update(dt);
 		ArrayList<Character> otherCharacters = dom.getOtherCharacter();
 		for (Character character : otherCharacters) {
-			character.update(dt);
+			character.update_pre(dt);
 		}
 	}
 

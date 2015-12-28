@@ -18,9 +18,10 @@ public class Character{
     private double last_x;
     private double last_y;
     private boolean isMove;
-    private int speed;
+    private double speed;
     private int dt = 0;
     private final int FRAME_TIME = 150;
+    private double[] dxy = {0,0};
 
     public Character(int id, double x, double y){
         setID(id);
@@ -44,6 +45,10 @@ public class Character{
         }
     }
 
+    public void update_pre(int dt){
+        movePredict(dt);
+    }
+
     private void initChar(){
         last_x = x;
         last_y = y;
@@ -57,6 +62,7 @@ public class Character{
         last_y = this.y;
         this.x = x;
         this.y = y;
+        setSpeed();
        // incFrame();
     }
 
@@ -64,6 +70,7 @@ public class Character{
         setPosition(x,y);
         setDirection(dir);
         update(20);
+
     }
 
     public double getX(){
@@ -103,8 +110,17 @@ public class Character{
         return this.ID;
     }
 
-    public void setSpeed(int speed){
-        this.speed = speed;
+    private void setSpeed(){
+        double dx = (x - last_x);
+        double dy = (y - last_y);
+        dxy[0] = dx;
+        dxy[1] = dy;
+        System.out.println(dx+","+dy);
+    }
+
+    private void movePredict(int dt){
+        x += dxy[0] * FRAME_TIME * dt / 1000.0;
+        y += dxy[1] * FRAME_TIME * dt / 1000.0;
     }
 
     private void incFrame(){
@@ -118,9 +134,6 @@ public class Character{
         return (last_x != x || last_y != y);
     }
 
-    public void stop(){
-        isMove = false;
-    }
 
     private void loadImage(String imagePath){
         ImageSplit imageSplit = new ImageSplit();
@@ -138,10 +151,5 @@ public class Character{
     public BufferedImage getImage(){
         return images[frame];
     }
-
-    public BufferedImage[] getSprites(){
-        return this.images;
-    }
-
 
 }

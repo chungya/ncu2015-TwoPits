@@ -109,10 +109,7 @@ public class UDPUS {
                     s = s.trim();
                     dom.downloadCharacter(s);
 
-                    Thread.sleep(200);
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
@@ -144,7 +141,7 @@ public class UDPUS {
                 }
                 try {
                     sendSocket.send(sendPacket);
-                    Thread.sleep(200);
+                    Thread.sleep(50);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
